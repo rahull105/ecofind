@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="auth-container">
+    <form method="POST" autocomplete="off">
+        <h2><i class="fa-solid fa-user-plus"></i> Sign Up</h2>
+        <input type="email" name="email" placeholder="Email" required autocomplete="username">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required autocomplete="new-password">
+        <button type="submit"><i class="fa-solid fa-user-plus"></i> Sign Up</button>
+        <p>Already have an account? <a href="{{ url_for('login') }}">Login</a></p>
+    </form>
+</div>
+{% endblock %}

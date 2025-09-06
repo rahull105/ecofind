@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align:center;margin:1.4em 0 1em 0;">
+    <i class="fa-solid fa-cart-shopping"></i> Your Cart
+</h2>
+<div class="product-list">
+    {% for p in products %}
+    <div class="product-card">
+        <img src="{{ url_for('static', filename=p[5]) }}" class="product-img" alt="Product">
+        <h3>{{ p[1] }}</h3>
+        <p>${{ "%.2f"|format(p[4]) }}</p>
+        <a href="{{ url_for('remove_from_cart', product_id=p[0]) }}" class="delete-btn">
+            <i class="fa-solid fa-trash"></i> Remove
+        </a>
+    </div>
+    {% endfor %}
+</div>
+{% if products %}
+    <a class="purchase-btn" href="{{ url_for('purchase') }}"><i class="fa-solid fa-cash-register"></i> Purchase All</a>
+{% else %}
+    <div style="text-align:center;color:#888;margin:1.5em;">Your cart is empty.</div>
+{% endif %}
+{% endblock %}

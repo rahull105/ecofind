@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="feed-header">
+    <form method="get" action="{{ url_for('feed') }}">
+        <input type="text" name="search" placeholder="Search by title..." value="{{ request.args.get('search', '') }}">
+        <select name="category">
+            <option value="">All Categories</option>
+            {% for cat in categories %}
+            <option value="{{ cat }}" {% if request.args.get('category') == cat %}selected{% endif %}>{{ cat }}</option>
+            {% endfor %}
+        </select>
+        <button type="submit"><i class="fa-solid fa-filter"></i> Filter</button>
+    </form>
+    {% if current_user.is_authenticated %}
+    <a class="add-btn" href="{{ url_for('add_product') }}"><i class="fa-solid fa-plus"></i> Add New Product</a>
+    {% endif %}
+</div>
+<div class="product-list">
+    {% for p in products %}
+    <div class="product-card" style="animation-delay: {{ loop.index0 * 0.10 }}s;">
+        <img src="{{ url_for('static', filename=p[5] or 'placeholder.png') }}" class="product-img" alt="Product">
+        <h3>{{ p[1] }}</h3>
+        <p>${{ "%.2f"|format(p[4]) }}</p>
+        <a href="{{ url_for('product_detail', product_id=p[0]) }}"><i class="fa-solid fa-eye"></i> View</a>
+        {% if current_user.is_authenticated and p[6] != current_user.id %}
+            <a href="{{ url_for('add_to_cart', product_id=p[0]) }}"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+        {% endif %}
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

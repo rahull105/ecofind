@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="profile-container">
+    <img src="{{ url_for('static', filename='default_user.png') }}" class="profile-img" alt="Profile">
+    <form method="POST">
+        <label>Email:</label>
+        <div style="margin-bottom:.8em;">{{ user.email }}</div>
+        <label>Username:</label>
+        <input type="text" name="username" value="{{ user.username }}" required>
+        <button type="submit"><i class="fa-solid fa-pen"></i> Update</button>
+    </form>
+</div>
+{% endblock %}

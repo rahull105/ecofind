@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="product-detail">
+    <img src="{{ url_for('static', filename=product[5] or 'placeholder.png') }}" class="product-img-large" alt="Product">
+    <h2>{{ product[1] }}</h2>
+    <p><strong>Price:</strong> ${{ "%.2f"|format(product[4]) }}</p>
+    <p><strong>Category:</strong> {{ product[3] }}</p>
+    <p style="margin:1.5em 0;">{{ product[2] }}</p>
+    {% if current_user.is_authenticated and product[6] != current_user.id %}
+        <a href="{{ url_for('add_to_cart', product_id=product[0]) }}"><i class="fa-solid fa-cart-plus"></i> Add to Cart</a>
+    {% endif %}
+</div>
+{% endblock %}

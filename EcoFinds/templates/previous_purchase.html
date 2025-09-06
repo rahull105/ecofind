@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+<h2 style="text-align:center;margin:1.4em 0 1em 0;">
+    <i class="fa-solid fa-clock-rotate-left"></i> Previous Purchases
+</h2>
+<div class="product-list">
+    {% for p in products %}
+    <div class="product-card">
+        <img src="{{ url_for('static', filename=p[5]) }}" class="product-img" alt="Product">
+        <h3>{{ p[1] }}</h3>
+        <p>${{ "%.2f"|format(p[4]) }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% if not products %}
+    <div style="text-align:center;color:#888;margin:1.5em;">No purchases yet.</div>
+{% endif %}
+{% endblock %}
